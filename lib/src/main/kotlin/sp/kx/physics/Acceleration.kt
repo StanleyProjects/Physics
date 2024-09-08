@@ -7,5 +7,5 @@ interface Acceleration {
     fun scalar(timeUnit: TimeUnit): Double
     fun angle(): Double
     fun isEmpty(): Boolean
-    fun speed(duration: Duration, timeUnit: TimeUnit): Double
+    fun speed(timeUnit: TimeUnit, duration: Duration): Double
 }

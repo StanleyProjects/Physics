@@ -36,9 +36,7 @@ class MutableAcceleration : Acceleration {
 
     override fun scalar(timeUnit: TimeUnit): Double {
         val bN = BigDecimal(timeUnit.toNanos(1))
-        return BigDecimal(
-            distanceOf(offset),
-        ).multiply(bN).multiply(bN).toDouble()
+        return BigDecimal(distanceOf(offset)).multiply(bN).multiply(bN).toDouble()
     }
 
     override fun angle(): Double {
@@ -49,9 +47,8 @@ class MutableAcceleration : Acceleration {
         return offset.isEmpty()
     }
 
-    override fun speed(duration: Duration, timeUnit: TimeUnit): Double {
-        TODO()
-//        return (distanceOf(offset) * duration.inWholeNanoseconds) * timeUnit.toNanos(1)
+    override fun speed(timeUnit: TimeUnit, duration: Duration): Double {
+        return (distanceOf(offset) * duration.inWholeNanoseconds) * timeUnit.toNanos(1)
     }
 
     companion object {
@@ -63,8 +60,16 @@ class MutableAcceleration : Acceleration {
             val bN = BigDecimal(timeUnit.toNanos(1))
             val bM = BigDecimal(magnitude)
             return MutableAcceleration(
-                dX = BigDecimal(kotlin.math.cos(angle)).multiply(bM).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
-                dY = BigDecimal(kotlin.math.sin(angle)).multiply(bM).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+                dX = BigDecimal(kotlin.math.cos(angle))
+                    .multiply(bM)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .toDouble(),
+                dY = BigDecimal(kotlin.math.sin(angle))
+                    .multiply(bM)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .toDouble(),
             )
         }
     }
