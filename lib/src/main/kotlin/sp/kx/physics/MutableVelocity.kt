@@ -120,3 +120,10 @@ operator fun Offset.div(timeUnit: TimeUnit): Velocity {
         timeUnit = timeUnit,
     )
 }
+
+fun velocityOf(
+    magnitude: Double,
+    timeUnit: TimeUnit,
+): Velocity {
+    return MutableVelocity.of(magnitude = magnitude, timeUnit = timeUnit)
+}
