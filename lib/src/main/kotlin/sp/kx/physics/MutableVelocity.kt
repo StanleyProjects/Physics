@@ -51,6 +51,17 @@ class MutableVelocity(
         )
     }
 
+    fun set(
+        magnitude: Double,
+        timeUnit: TimeUnit,
+    ) {
+        val angle = angleOf(offset)
+        offset.set(
+            dX = magnitude * kotlin.math.cos(angle) / timeUnit.toNanos(1),
+            dY = magnitude * kotlin.math.sin(angle) / timeUnit.toNanos(1),
+        )
+    }
+
     fun clear() {
         // todo sp.kx.math.clear
         offset.set(
@@ -68,6 +79,17 @@ class MutableVelocity(
             return MutableVelocity(
                 dX = magnitude * kotlin.math.cos(angle),
                 dY = magnitude * kotlin.math.sin(angle),
+                timeUnit = timeUnit,
+            )
+        }
+
+        fun of(
+            magnitude: Double,
+            timeUnit: TimeUnit,
+        ): MutableVelocity {
+            return MutableVelocity(
+                dX = magnitude,
+                dY = 0.0,
                 timeUnit = timeUnit,
             )
         }
