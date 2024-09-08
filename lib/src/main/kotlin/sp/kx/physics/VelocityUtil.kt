@@ -4,22 +4,30 @@ import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.nanoseconds
 
+/**
+ *         duration
+ * |<----->|
+ * vs      vt
+ * * - - - *
+ * |<----->|
+ *         length
+ */
 fun getLength(
     vs: Double,
-    vx: Double,
+    vt: Double,
     duration: Duration,
     timeUnit: TimeUnit,
 ): Double {
-    return (vs + vx) / timeUnit.toNanos(1) * duration.inWholeNanoseconds / 2
+    return (vs + vt) / timeUnit.toNanos(1) * duration.inWholeNanoseconds / 2
 }
 
 fun getDuration(
     vs: Double,
-    vx: Double,
+    vt: Double,
     length: Double,
     timeUnit: TimeUnit,
 ): Duration {
-    return (2 * length / (vs + vx) * timeUnit.toNanos(1)).nanoseconds
+    return (2 * length / (vs + vt) * timeUnit.toNanos(1)).nanoseconds
 }
 
 fun getTargetSpeed(
@@ -31,20 +39,38 @@ fun getTargetSpeed(
     return 2 * length / duration.inWholeNanoseconds * timeUnit.toNanos(1) - vs
 }
 
+/**
+ *                 lt
+ * |<------------->|
+ * vs      vm      vt
+ * * - - - * - - - *
+ * |<----->|
+ *         lm
+ */
+fun getMiddleSpeed(
+    vs: Double,
+    vt: Double,
+    lm: Double,
+    lt: Double,
+    timeUnit: TimeUnit,
+): Double {
+    TODO()
+}
+
 fun getLength(
     vs: Velocity,
-    vx: Velocity,
+    vt: Velocity,
     duration: Duration,
 ): Double {
-    return (vs.scalar(TimeUnit.NANOSECONDS) + vx.scalar(TimeUnit.NANOSECONDS)) * duration.inWholeNanoseconds / 2
+    return (vs.scalar(TimeUnit.NANOSECONDS) + vt.scalar(TimeUnit.NANOSECONDS)) * duration.inWholeNanoseconds / 2
 }
 
 fun getDuration(
     vs: Velocity,
-    vx: Velocity,
+    vt: Velocity,
     length: Double,
 ): Duration {
-    return (2 * length / (vs.scalar(TimeUnit.NANOSECONDS) + vx.scalar(TimeUnit.NANOSECONDS))).nanoseconds
+    return (2 * length / (vs.scalar(TimeUnit.NANOSECONDS) + vt.scalar(TimeUnit.NANOSECONDS))).nanoseconds
 }
 
 fun getTargetSpeed(
