@@ -78,5 +78,19 @@ class MutableAcceleration : Acceleration {
                     .toDouble(),
             )
         }
+
+        fun of(
+            magnitude: Double,
+            timeUnit: TimeUnit,
+        ): MutableAcceleration {
+            val bN = BigDecimal(timeUnit.toNanos(1))
+            return MutableAcceleration(
+                dX = BigDecimal(magnitude)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .toDouble(),
+                dY = 0.0,
+            )
+        }
     }
 }
