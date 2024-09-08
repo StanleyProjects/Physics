@@ -21,3 +21,19 @@ fun getDuration(
 ): Duration {
     return (2 * length / (vs + vx) * timeUnit.toNanos(1)).nanoseconds
 }
+
+fun getLength(
+    vs: Velocity,
+    vx: Velocity,
+    duration: Duration,
+): Double {
+    return (vs.scalar(TimeUnit.NANOSECONDS) + vx.scalar(TimeUnit.NANOSECONDS)) * duration.inWholeNanoseconds / 2
+}
+
+fun getDuration(
+    vs: Velocity,
+    vx: Velocity,
+    length: Double,
+): Duration {
+    return (2 * length / (vs.scalar(TimeUnit.NANOSECONDS) + vx.scalar(TimeUnit.NANOSECONDS))).nanoseconds
+}
