@@ -7,6 +7,7 @@ import sp.kx.math.angleOf
 import sp.kx.math.distanceOf
 import sp.kx.math.isEmpty
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
 
 class MutableVelocity(
     dX: Double,
@@ -28,6 +29,10 @@ class MutableVelocity(
 
     override fun isEmpty(): Boolean {
         return offset.isEmpty()
+    }
+
+    override fun length(duration: Duration): Double {
+        return distanceOf(offset) * duration.inWholeNanoseconds
     }
 
     fun add(
