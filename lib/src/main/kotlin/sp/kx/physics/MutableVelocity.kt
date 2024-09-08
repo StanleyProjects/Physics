@@ -41,6 +41,17 @@ class MutableVelocity(
         )
     }
 
+    fun add(
+        magnitude: Double,
+        timeUnit: TimeUnit,
+    ) {
+        val angle = angleOf(offset)
+        offset.add(
+            dX = magnitude * kotlin.math.cos(angle) / timeUnit.toNanos(1),
+            dY = magnitude * kotlin.math.sin(angle) / timeUnit.toNanos(1),
+        )
+    }
+
     fun set(
         magnitude: Double,
         angle: Double,
