@@ -1,0 +1,11 @@
+package sp.kx.physics
+
+import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
+
+interface Acceleration {
+    fun scalar(timeUnit: TimeUnit): Double
+    fun angle(): Double
+    fun isEmpty(): Boolean
+    fun speed(duration: Duration, timeUnit: TimeUnit): Double
+}
