@@ -1,6 +1,7 @@
 package sp.kx.physics
 
 import sp.kx.math.MutableOffset
+import sp.kx.math.Offset
 import sp.kx.math.add
 import sp.kx.math.angleOf
 import sp.kx.math.distanceOf
@@ -94,4 +95,12 @@ class MutableVelocity(
             )
         }
     }
+}
+
+operator fun Offset.div(timeUnit: TimeUnit): Velocity {
+    return MutableVelocity(
+        dX = dX,
+        dY = dY,
+        timeUnit = timeUnit,
+    )
 }
