@@ -19,8 +19,14 @@ class MutableAcceleration : Acceleration {
     ) {
         val bN = BigDecimal(timeUnit.toNanos(1))
         offset = MutableOffset(
-            dX = BigDecimal(dX).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
-            dY = BigDecimal(dY).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+            dX = BigDecimal(dX)
+                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .toDouble(),
+            dY = BigDecimal(dY)
+                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .toDouble(),
         )
     }
 
