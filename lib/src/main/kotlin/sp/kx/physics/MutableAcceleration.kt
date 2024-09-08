@@ -4,27 +4,41 @@ import sp.kx.math.MutableOffset
 import sp.kx.math.angleOf
 import sp.kx.math.distanceOf
 import sp.kx.math.isEmpty
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
 
-class MutableAcceleration(
-    dX: Double,
-    dY: Double,
-    timeUnit: TimeUnit,
-) : Acceleration {
+class MutableAcceleration : Acceleration {
     private val offset: MutableOffset
 
-    init {
-        val nanos = timeUnit.toNanos(1)
+    constructor(
+        dX: Double,
+        dY: Double,
+        timeUnit: TimeUnit,
+    ) {
+        val bN = BigDecimal(timeUnit.toNanos(1))
         offset = MutableOffset(
-            dX = dX / (nanos * nanos),
-            dY = dY / (nanos * nanos),
+            dX = BigDecimal(dX).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+            dY = BigDecimal(dY).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+        )
+    }
+
+    private constructor(
+        dX: Double,
+        dY: Double,
+    ) {
+        offset = MutableOffset(
+            dX = dX,
+            dY = dY,
         )
     }
 
     override fun scalar(timeUnit: TimeUnit): Double {
-        val nanos = timeUnit.toNanos(1)
-        return distanceOf(offset) * nanos * nanos
+        val bN = BigDecimal(timeUnit.toNanos(1))
+        return BigDecimal(
+            distanceOf(offset),
+        ).multiply(bN).multiply(bN).toDouble()
     }
 
     override fun angle(): Double {
@@ -36,6 +50,22 @@ class MutableAcceleration(
     }
 
     override fun speed(duration: Duration, timeUnit: TimeUnit): Double {
-        return (distanceOf(offset) * duration.inWholeNanoseconds) * timeUnit.toNanos(1)
+        TODO()
+//        return (distanceOf(offset) * duration.inWholeNanoseconds) * timeUnit.toNanos(1)
+    }
+
+    companion object {
+        fun of(
+            magnitude: Double,
+            angle: Double,
+            timeUnit: TimeUnit,
+        ): MutableAcceleration {
+            val bN = BigDecimal(timeUnit.toNanos(1))
+            val bM = BigDecimal(magnitude)
+            return MutableAcceleration(
+                dX = BigDecimal(kotlin.math.cos(angle)).multiply(bM).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+                dY = BigDecimal(kotlin.math.sin(angle)).multiply(bM).divide(bN).divide(bN, 128, RoundingMode.HALF_DOWN).toDouble(),
+            )
+        }
     }
 }
