@@ -20,12 +20,12 @@ class MutableAcceleration : Acceleration {
         val bN = BigDecimal(timeUnit.toNanos(1))
         offset = MutableOffset(
             dX = BigDecimal(dX)
-                .divide(bN, 128, RoundingMode.HALF_DOWN)
-                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .divide(bN, 128, roundingMode)
+                .divide(bN, 128, roundingMode)
                 .toDouble(),
             dY = BigDecimal(dY)
-                .divide(bN, 128, RoundingMode.HALF_DOWN)
-                .divide(bN, 128, RoundingMode.HALF_DOWN)
+                .divide(bN, 128, roundingMode)
+                .divide(bN, 128, roundingMode)
                 .toDouble(),
         )
     }
@@ -58,6 +58,8 @@ class MutableAcceleration : Acceleration {
     }
 
     companion object {
+        private val roundingMode = RoundingMode.DOWN
+
         fun of(
             magnitude: Double,
             angle: Double,
@@ -68,13 +70,13 @@ class MutableAcceleration : Acceleration {
             return MutableAcceleration(
                 dX = BigDecimal(kotlin.math.cos(angle))
                     .multiply(bM)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, roundingMode)
+                    .divide(bN, 128, roundingMode)
                     .toDouble(),
                 dY = BigDecimal(kotlin.math.sin(angle))
                     .multiply(bM)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, roundingMode)
+                    .divide(bN, 128, roundingMode)
                     .toDouble(),
             )
         }
@@ -86,8 +88,8 @@ class MutableAcceleration : Acceleration {
             val bN = BigDecimal(timeUnit.toNanos(1))
             return MutableAcceleration(
                 dX = BigDecimal(magnitude)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
-                    .divide(bN, 128, RoundingMode.HALF_DOWN)
+                    .divide(bN, 128, roundingMode)
+                    .divide(bN, 128, roundingMode)
                     .toDouble(),
                 dY = 0.0,
             )
