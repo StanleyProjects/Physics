@@ -72,7 +72,7 @@ internal class VelocityUtilTest {
 
     @Test
     fun getMiddleSpeedTest() {
-        TODO()
+        TODO("VelocityUtilTest:getMiddleSpeedTest")
     }
 
     @Test
