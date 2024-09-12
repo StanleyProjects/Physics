@@ -54,7 +54,13 @@ fun getMiddleSpeed(
     lt: Double,
     timeUnit: TimeUnit,
 ): Double {
-    TODO()
+    val duration = 2 * lt / (vs + vt) * timeUnit.toNanos(1)
+    val a = (vt - vs) / duration * timeUnit.toNanos(1)
+    return getTargetSpeed(
+        vs = vs,
+        length = lm,
+        a = a,
+    )
 }
 
 fun getLength(
