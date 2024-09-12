@@ -9,7 +9,9 @@ fun getAcceleration(
     duration: Duration,
     timeUnit: TimeUnit,
 ): Double {
-    return (vt - vs) / duration.inWholeNanoseconds * timeUnit.toNanos(1)
+    return (vt - vs) /
+        duration.inWholeNanoseconds *
+        timeUnit.toNanos(1)
 }
 
 fun getAcceleration(
@@ -22,4 +24,18 @@ fun getAcceleration(
         duration.inWholeNanoseconds *
         timeUnit.toNanos(1) *
         timeUnit.toNanos(1)
+}
+
+/**
+ *                 lt
+ * |<------------->|
+ * vs              vt
+ * * - - - - - - - *
+ */
+fun getLength(
+    vs: Double,
+    vt: Double,
+    a: Double,
+): Double {
+    return (vt * vt - vs * vs) / (2 * a)
 }

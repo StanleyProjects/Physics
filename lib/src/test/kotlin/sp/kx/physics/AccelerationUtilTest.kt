@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import sp.kx.math.toString
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 internal class AccelerationUtilTest {
@@ -44,6 +45,20 @@ internal class AccelerationUtilTest {
                 duration = 2.hours,
                 timeUnit = TimeUnit.HOURS,
             ) to 5.5,
+        ).forEach { (actual, expected) ->
+            assertEquals(expected, actual, delta)
+        }
+    }
+
+    @Test
+    fun getLengthTest() {
+        val delta = 0.000000000001
+        listOf(
+            getLength(
+                vs = 0.0,
+                vt = 3.0,
+                a = 1.0,
+            ) to 4.5,
         ).forEach { (actual, expected) ->
             assertEquals(expected, actual, delta)
         }
