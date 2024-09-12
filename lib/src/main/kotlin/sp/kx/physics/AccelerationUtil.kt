@@ -39,3 +39,17 @@ fun getLength(
 ): Double {
     return (vt * vt - vs * vs) / (2 * a)
 }
+
+/**
+ *                 lt
+ * |<------------->|
+ * vs              vt
+ * * - - - - - - - *
+ */
+fun getTargetSpeed(
+    vs: Double,
+    length: Double,
+    a: Double,
+): Double {
+    return kotlin.math.sqrt(2 * length * a + vs * vs)
+}

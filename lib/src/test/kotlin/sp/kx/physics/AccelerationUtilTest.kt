@@ -63,4 +63,18 @@ internal class AccelerationUtilTest {
             assertEquals(expected, actual, delta)
         }
     }
+
+    @Test
+    fun getTargetSpeedTest() {
+        val delta = 0.000000000001
+        listOf(
+            getTargetSpeed(
+                vs = 0.0,
+                length = 4.5,
+                a = 1.0,
+            ) to 3.0,
+        ).forEach { (actual, expected) ->
+            assertEquals(expected, actual, delta)
+        }
+    }
 }
