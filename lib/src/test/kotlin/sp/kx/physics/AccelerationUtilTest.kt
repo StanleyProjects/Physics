@@ -2,10 +2,8 @@ package sp.kx.physics
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import sp.kx.math.toString
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 internal class AccelerationUtilTest {
