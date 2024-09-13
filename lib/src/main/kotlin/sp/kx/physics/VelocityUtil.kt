@@ -40,27 +40,46 @@ fun getTargetSpeed(
 }
 
 /**
+ * ```
  *                 lt
  * |<------------->|
  * vs      vm      vt
  * * - - - * - - - *
  * |<----->|
  *         lm
+ * ```
  */
 fun getMiddleSpeed(
     vs: Double,
     vt: Double,
     lm: Double,
     lt: Double,
-    timeUnit: TimeUnit,
 ): Double {
-    val duration = 2 * lt / (vs + vt) * timeUnit.toNanos(1)
-    val a = (vt - vs) / duration * timeUnit.toNanos(1)
+    val duration = 2 * lt / (vs + vt)
+    val a = (vt - vs) / duration
     return getTargetSpeed(
         vs = vs,
         length = lm,
         a = a,
     )
+}
+
+fun getMiddleSpeed(
+    vs: Velocity,
+    vt: Velocity,
+    lm: Double,
+    lt: Double,
+    timeUnit: TimeUnit,
+): Double {
+    val s = vs.scalar(TimeUnit.NANOSECONDS)
+    val t = vt.scalar(TimeUnit.NANOSECONDS)
+    val duration = 2 * lt / (s + t)
+    val a = (t - s) / duration
+    return getTargetSpeed(
+        vs = s,
+        length = lm,
+        a = a,
+    ) * timeUnit.toNanos(1)
 }
 
 fun getLength(

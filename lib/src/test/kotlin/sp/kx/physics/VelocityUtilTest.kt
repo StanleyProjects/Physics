@@ -79,14 +79,35 @@ internal class VelocityUtilTest {
                 vt = 3.0,
                 lm = 2.0,
                 lt = 4.5,
-                timeUnit = TimeUnit.HOURS,
             ) to 2.0,
             getMiddleSpeed(
                 vs = 0.0,
                 vt = 10.0,
                 lm = (0.5 + 1.5 + 2.5 + 3.5 + 4.5),
                 lt = (0.5 + 1.5 + 2.5 + 3.5 + 4.5 + 5.5 + 6.5 + 7.5 + 8.5 + 9.5),
-                timeUnit = TimeUnit.HOURS,
+            ) to 5.0,
+        ).forEach { (actual, expected) ->
+            assertEquals(expected, actual, delta)
+        }
+    }
+
+    @Test
+    fun getMiddleSpeedVelocityTest() {
+        val delta = 0.000000000001
+        listOf(
+            getMiddleSpeed(
+                vs = velocityOf(0.0, TimeUnit.SECONDS),
+                vt = velocityOf(3.0, TimeUnit.SECONDS),
+                lm = 2.0,
+                lt = 4.5,
+                timeUnit = TimeUnit.SECONDS,
+            ) to 2.0,
+            getMiddleSpeed(
+                vs = velocityOf(0.0, TimeUnit.SECONDS),
+                vt = velocityOf(10.0, TimeUnit.SECONDS),
+                lm = (0.5 + 1.5 + 2.5 + 3.5 + 4.5),
+                lt = (0.5 + 1.5 + 2.5 + 3.5 + 4.5 + 5.5 + 6.5 + 7.5 + 8.5 + 9.5),
+                timeUnit = TimeUnit.SECONDS,
             ) to 5.0,
         ).forEach { (actual, expected) ->
             assertEquals(expected, actual, delta)
