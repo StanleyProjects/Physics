@@ -167,4 +167,25 @@ internal class VelocityUtilTest {
             assertEquals(expected, actual, 0.00000000000001)
         }
     }
+
+    @Test
+    fun collideTest() {
+        val mv1 = MutableVelocity.of(magnitude = 42.0, timeUnit = TimeUnit.SECONDS)
+        val m1 = 1.0
+        val f1 = 0.0
+        val mv2 = MutableVelocity.of(magnitude = 0.0, timeUnit = TimeUnit.SECONDS)
+        val m2 = 1.0
+        val fi = 0.0
+        collide(
+            mv1 = mv1,
+            m1 = m1,
+            f1 = f1,
+            mv2 = mv2,
+            m2 = m2,
+            fi = fi,
+        )
+        val delta = 0.000000000001
+        assertEquals(0.0, mv1.scalar(TimeUnit.SECONDS), delta)
+        assertEquals(42.0, mv2.scalar(TimeUnit.SECONDS), delta)
+    }
 }

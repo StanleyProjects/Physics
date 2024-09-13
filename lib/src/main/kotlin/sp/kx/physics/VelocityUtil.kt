@@ -106,3 +106,39 @@ fun getTargetSpeed(
 ): Double {
     return (2 * length / duration.inWholeNanoseconds - vs.scalar(TimeUnit.NANOSECONDS)) * timeUnit.toNanos(1)
 }
+
+/**
+ * ```
+ * m1        m2
+ * * - - - > *
+ * ```
+ */
+fun collide(
+    mv1: MutableVelocity,
+    m1: Double,
+    f1: Double,
+    mv2: MutableVelocity,
+    m2: Double,
+    fi: Double,
+) {
+    val v1 = mv1.scalar(TimeUnit.NANOSECONDS)
+    val cosFi = kotlin.math.cos(fi)
+    val cosF1Fi = kotlin.math.cos(f1 - fi)
+    val sinFi = kotlin.math.sin(fi)
+    val sinF1Fi = kotlin.math.sin(f1 - fi)
+    val v1t = v1 * cosF1Fi * (m1 - m2)
+    val ms = m1 + m2
+    val v1x = v1t * cosFi / ms + v1 * sinF1Fi * kotlin.math.cos(fi + kotlin.math.PI / 2)
+    val v1y = v1t * sinFi / ms + v1 * sinF1Fi * kotlin.math.sin(fi + kotlin.math.PI / 2)
+    mv1.offset(
+        dX = v1x,
+        dY = v1y,
+        timeUnit = TimeUnit.NANOSECONDS,
+    )
+    val v2t = 2 * m1 * v1 * cosF1Fi
+    mv2.offset(
+        dX = v2t * cosFi / ms,
+        dY = v2t * sinFi / ms,
+        timeUnit = TimeUnit.NANOSECONDS,
+    )
+}

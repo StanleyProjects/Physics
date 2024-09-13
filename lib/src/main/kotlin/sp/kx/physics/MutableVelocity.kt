@@ -57,6 +57,17 @@ class MutableVelocity(
         )
     }
 
+    fun offset(
+        dX: Double,
+        dY: Double,
+        timeUnit: TimeUnit,
+    ) {
+        offset.set(
+            dX = dX / timeUnit.toNanos(1),
+            dY = dY / timeUnit.toNanos(1),
+        )
+    }
+
     fun set(
         magnitude: Double,
         angle: Double,
